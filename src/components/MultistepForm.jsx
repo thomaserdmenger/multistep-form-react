@@ -23,6 +23,13 @@ export default function MultistepForm() {
   const handlePreviousStep = () =>
     setCurrentStep((previousStep) => previousStep - 1);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Thank you for your submission");
+    setFormData(initialFormData);
+    setCurrentStep(1);
+  };
+
   if (currentStep === 1) {
     return (
       <form>
@@ -110,6 +117,32 @@ export default function MultistepForm() {
           </button>
           <button type="button" onClick={handleNextStep}>
             Next
+          </button>
+        </div>
+      </form>
+    );
+  } else if (currentStep === 3) {
+    return (
+      <form>
+        <h2>Confirm your Information</h2>
+        <div>
+          <label>Step {currentStep} of 3</label>
+          <progress value={currentStep} max={3}></progress>
+        </div>
+        <table>
+          {Object.keys(formData).map((item) => (
+            <tr key={item}>
+              <td>{`${item}:`}</td>
+              <td>{formData[item]}</td>
+            </tr>
+          ))}
+        </table>
+        <div>
+          <button type="button" onClick={handlePreviousStep}>
+            Previous
+          </button>
+          <button type="button" onClick={handleSubmit}>
+            Submit
           </button>
         </div>
       </form>
